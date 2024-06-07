@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+        </tr>
+        {% for i in category  %}
+        <tr>
+            <td>{{i.name}}</td>
+            <td><img src="{{i.img.url}}" alt="Error"  height="400px" width="auto"></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
