@@ -56,6 +56,7 @@ Author URL: http://w3layouts.com
 
                         </label>
                         <button type="submit" class="btn btn-primary btn-style">Register Now</button>
+                        <button type="submit" class="btn btn-primary btn-style mx-3"> <a class="nav-link" href={% url "register" %} style="color:white !important;padding:1px">SignUp Now</a></button>
                     </form>
                 </div>
                 {% if pass %}
@@ -68,7 +69,11 @@ Author URL: http://w3layouts.com
                 alert('{{email}}')
                </script>
                {% endif %}
-               
+               {% if notregistered %}
+               <script>
+                alert('{{notregistered}}')
+               </script>
+               {% endif %}
               
         <!-- //main content -->
         <!-- footer -->

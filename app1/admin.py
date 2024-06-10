@@ -31,9 +31,9 @@ class showImg(admin.ModelAdmin):
 admin.site.register(Img,showImg)
 
 class showCategory(admin.ModelAdmin):
-    list_display=['name','img']
-    list_filter=['name','img']
-    search_fields=['name','img']
+    list_display=['id','name','img']
+    list_filter=['id','name','img']
+    search_fields=['id','name','img']
 
 admin.site.register(category,showCategory)
 

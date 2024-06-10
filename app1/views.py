@@ -78,8 +78,12 @@ def update(request):
 
 
 def index(request):
+ if 'email' in request.session:
     categorydata=category.objects.all()
-    return render(request,'index.html',{'catdata':categorydata})
+    return render(request,'index.html',{'catdata':categorydata,'session':True})
+ else:
+      categorydata=category.objects.all()
+      return render(request,'index.html',{'catdata':categorydata})
 
 
 def allproduct(request):
@@ -95,29 +99,39 @@ def register(request):
         user.add=request.POST['add']
         user.mobile=request.POST['mobile']
         user.password=request.POST['password']
-        cpassword=request.POST['cpassword']
         userAlready=userRegister.objects.filter(email=request.POST['email'])
         if len(userAlready) > 0:
                     return render(request,"register.html",{'userAlready':'This email is already registered'})
         else:
-              if cpassword!=request.POST['password']:
+              if request.POST['cpassword']!=request.POST['password']:
                return render(request,'register.html',{"passnotmatch":'Confirm password is not mathced!'})
               else:
-               user.save()
-              return render(request,"register.html",{'store':'You are registered Successfully'})
+                user.save()
+                return render(request,"register.html",{'store':'You are registered Successfully'})
     else:
         return render(request,"register.html")
    
 def Login(request):
-#    try:
-      if request.method=="POST":
-        useremail=userRegister.objects.get(email=request.POST['email'])
-
-        if useremail.password == request.POST['password']:
+ if request.method=="POST":
+    try:
+        user=userRegister.objects.get(email=request.POST['email'])
+        if user.password == request.POST['password']:
+          request.session['email']=user.email
+        #   print(request.session['email'])
           return redirect("index")     
         else:
             return render(request,"login.html",{'pass':'Password is incorrect...'})
-      else:
+    except Exception as e:
+     return render(request,"login.html",{'notregistered':'Before login you have to register first!'})  
+ else:
          return render(request,"Login.html")
-#    except Exception as e:
-    #  return render(request,"login.html",{'email':'email is incorrect...'})     
+      
+
+def logout(request):
+    del request.session['email']
+    return redirect('index')
+
+
+def catproduct(request,id):
+    catpro=product.objects.filter(category = id)
+    return render(request,'catProduct.html',{'catpro':catpro})
