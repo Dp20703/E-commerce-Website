@@ -133,5 +133,17 @@ def logout(request):
 
 
 def catproduct(request,id):
+ if 'email' in request.session:
     catpro=product.objects.filter(category = id)
-    return render(request,'catProduct.html',{'catpro':catpro})
+    return render(request,'catProduct.html',{'catpro':catpro,'session':True})
+ else:
+     catpro=product.objects.filter(category = id)
+     return render(request,'catProduct.html',{'catpro':catpro})
+
+def proDetails(request,id):
+    if 'email' in request.session:
+     pro=product.objects.get(pk = id)
+     return render(request,'proDetails.html',{'pro':pro,'session':True})
+    else:
+     pro=product.objects.get(pk = id)
+     return render(request,'proDetails.html',{'pro':pro})
