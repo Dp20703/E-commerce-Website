@@ -17,4 +17,5 @@ urlpatterns = [
     path('logout/', logout,name='logout'), 
     path('catproduct/<int:id>', catproduct,name='catproduct'), 
     path('proDetails/<int:id>', proDetails,name='proDetails'), 
+    path('profile/', profile,name='profile'), 
 ]

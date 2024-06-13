@@ -142,8 +142,23 @@ def catproduct(request,id):
 
 def proDetails(request,id):
     if 'email' in request.session:
-     pro=product.objects.get(pk = id)
-     return render(request,'proDetails.html',{'pro':pro,'session':True})
+        pro=product.objects.get(pk = id)
+        return render(request,'proDetails.html',{'pro':pro,'session':True})
     else:
-     pro=product.objects.get(pk = id)
-     return render(request,'proDetails.html',{'pro':pro})
+        pro=product.objects.get(pk = id)
+        return render(request,'proDetails.html',{'pro':pro})
+    
+
+def profile(request):
+    if 'email' in request.session:
+        userdetails=userRegister.objects.get(email=request.session['email'])
+        if request.method=='POST':
+            userdetails.name=request.POST['name']
+            userdetails.mobile=request.POST['mobile']
+            userdetails.add=request.POST['add']
+            userdetails.save()
+            return render(request,'profile.html',{'user':userdetails,'session':True})
+        else:
+            return render(request,'profile.html',{'user':userdetails,'session':True})
+    else:
+     return redirect('Login')
