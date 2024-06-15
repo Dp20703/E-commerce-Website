@@ -27,6 +27,8 @@
 
 
     <!--====================== Main Section ======================-->
+    <form action="" method="post">
+    {% csrf_token %}
     <div class="container my-5">
       <div class="row mt-4 mr-auto ml-auto">
         <div class="col-lg-4">
@@ -44,15 +46,21 @@
            {{pro.description}}
           </p>
           <p><strong>Price:</strong> ₹{{pro.price}}</p>
+          <input type="number" name="qty" min="1">
           <i class="fa-solid fa-star ratingcolor"></i>
           <i class="fa-solid fa-star ratingcolor"></i>
           <i class="fa-solid fa-star ratingcolor"></i>
           <i class="fa-regular fa-star-half-stroke ratingcolor"></i>
           <i class="fa-regular fa-star ratingcolor"></i>
           <br />
-          <a href="cart.html">
-          <button class="btn btn-outline-primary mt-3">Add to Cart</button>
-        </a>
+  
+          {% comment %} <a href={% url "index" %}> {% endcomment %}
+          <button class="btn btn-outline-primary mt-3" type='submit'>Buy now</button>
+          <!-- <a href="cart.html">
+          <button class="btn btn-outline-primary mt-3">Add to Cart</button> 
+        </a>-->
+      
+      </form>
         </div>
       </div>
     </div>

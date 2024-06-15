@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from  .models import Author,category,product,userRegister
+from  .models import *
 
 # Create your views here.
 def Default(request):
@@ -141,12 +141,22 @@ def catproduct(request,id):
      return render(request,'catProduct.html',{'catpro':catpro})
 
 def proDetails(request,id):
-    if 'email' in request.session:
+   if 'email' in request.session:
         pro=product.objects.get(pk = id)
-        return render(request,'proDetails.html',{'pro':pro,'session':True})
-    else:
+        if request.method == 'POST':
+            print(1111111)
+            qty = request.POST['qty']
+            print(qty)
+            request.session['qty'] = qty
+            request.session['proid'] = id
+            # return render(request,'proDetails.html',{'pro':pro,'session':True})
+            return redirect("checkout")
+            # return render(request,'checkout.html',{'pro':pro,'session':True})
+        else:
+             return render(request,'proDetails.html',{'pro':pro,'session':True})
+   else:
         pro=product.objects.get(pk = id)
-        return render(request,'proDetails.html',{'pro':pro})
+        return  render(request,'proDetails.html',{'pro':pro})
     
 
 def profile(request):
@@ -162,3 +172,51 @@ def profile(request):
             return render(request,'profile.html',{'user':userdetails,'session':True})
     else:
      return redirect('Login')
+    
+import random
+def checkout(request):
+    if 'email' in request.session:
+        print(111111)
+        user=userRegister.objects.get(email=request.session['email'])
+        pro=product.objects.get(id=int(request.session['proid']))
+        orderid=random.randint(0000000,9999999)
+        print(2222222)
+        if request.method=='POST':
+            print(3333333333)
+
+            orderdata=order()
+            orderdata.userid=user.pk
+            orderdata.proid=request.session["proid"]
+            orderdata.add=request.POST['add']
+            orderdata.city=request.POST['city']
+            orderdata.state=request.POST['state']
+            orderdata.pincode=request.POST['pin']
+            orderdata.qty=request.session['qty']
+            orderdata.orderid=orderid
+            orderdata.totalprice=int(pro.price)*int(request.session['qty'])
+            orderdata.paytype=request.POST['paymentvia']
+            if orderdata.paytype=='cod': 
+                print(4444444444)
+                orderdata.transaction_id='1234'
+                orderdata.save()
+                # return render(request,'checkout.html')
+                return redirect('index')
+            else:
+                print(55555555555555)
+                request.session['add']=request.POST ['add']
+                request.session['add'] = request.POST['add']
+                request.session['city'] = request.POST['city']
+                request.session['state'] = request.POST['state']
+                request.session['pin'] = request.POST['pin']
+                request.session['amount'] = orderdata.totalprice 
+                # return redirect('razorpay')
+                return render(request,'checkout.html')
+        else:
+            print(77777777777777)
+            return render(request,'checkout.html')
+    else:
+        print(888888888888888888888)
+        return render(request,'checkout.html')
+
+            
+

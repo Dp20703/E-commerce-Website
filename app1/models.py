@@ -48,4 +48,21 @@ class product(models.Model):
     def __str__(self):
      return self.name
     
+class order(models.Model):
+    userid = models.CharField(max_length=3)
+    proid = models.CharField(max_length=3)
+    add = models.TextField()
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    qty = models.CharField(max_length=5)
+    pincode = models.CharField(max_length=6)
+    totalprice = models.CharField(max_length=6)
+    orderid = models.CharField(max_length=50)
+    paytype = models.CharField(max_length=50)
+    transaction_id = models.CharField(max_length=100) 
+    datetime = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.userid
+
 

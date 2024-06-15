@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog,Author,userRegister,Img,category,product
+from .models import Blog,Author,userRegister,Img,category,product,order
 # Register your models here.
 class showBlog(admin.ModelAdmin):
     list_display=['name','tagline']
@@ -43,5 +43,12 @@ class showProduct(admin.ModelAdmin):
     search_fields=['id','name','description','img','category','qty','price']
 
 admin.site.register(product,showProduct)
+
+class showOrder(admin.ModelAdmin):
+    list_display=['id','userid','proid','pincode', 'qty','totalprice','paytype','orderid','transaction_id','datetime']
+    list_filter=['id','userid','proid','pincode', 'qty','totalprice','paytype','orderid','transaction_id','datetime']
+    search_fields=['id','userid','proid','pincode','qty','totalprice','paytype','orderid','transaction_id','datetime']
+
+admin.site.register(order,showOrder)
 
 
