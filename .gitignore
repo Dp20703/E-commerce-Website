@@ -3,3 +3,6 @@ app1/__pycache__
 proj1/__pycache__
 app1/migrations/0014_rename_price_order_pincode.py
 
+db.sqlite3
+app1/__pycache__/urls.cpython-312.pyc
+app1/__pycache__/urls.cpython-312.pyc

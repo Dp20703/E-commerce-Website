@@ -19,4 +19,6 @@ urlpatterns = [
     path('proDetails/<int:id>', proDetails,name='proDetails'), 
     path('profile/', profile,name='profile'), 
     path('checkout/',checkout,name='checkout'),
+    path('razorpay/',razorpaymet,name='razorpay'),
+    path('paymenthandler/',paymenthandler,name='paymenthandler')
 ]
