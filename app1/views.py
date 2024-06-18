@@ -229,7 +229,7 @@ RAZOR_KEY_SECRET = '2DyOadFeAUMu9vGCg2RFMXKj'
 
 # authorize razorpay client with API Keys.
 razorpay_client = razorpay.Client(
-    auth=(RAZOR_KEY_ID,  RAZOR_KEY_SECRET))
+    auth=(RAZOR_KEY_ID,RAZOR_KEY_SECRET))
 
 
 def razorpaymet(request):
@@ -305,7 +305,6 @@ def paymenthandler(request):
                     orderdata.paytype = "online"
                     orderdata.transaction_id = payment_id
                     orderdata.save()
-                
                     # render success page on successful caputre of payment
                     # return render(request, 'paymentsuccess.html')
                     print(4444444444444)
